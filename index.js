@@ -50,10 +50,14 @@ io.on("connection", (socket) => {
     text
   }) => {
     const user = getUser(receiverId);
-    io.to(user.socketId).emit("getMessage", {
-      senderId,
-      text,
-    });
+    try {
+      io.to(user.socketId).emit("getMessage", {
+        senderId,
+        text,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   });
 
   //when disconnect
